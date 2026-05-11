@@ -37,7 +37,7 @@ button {
 button:disabled { opacity: 0.6; cursor: wait; }
 .secondary { background: var(--blue); }
 .danger { background: var(--red); }
-.ghost-button { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+.ghost-button { background: transparent; color: var(--green); border: 1px solid var(--line); }
 
 .login-page {
   min-height: 100vh;
