@@ -134,7 +134,8 @@ Allowed transitions:
 ### Backend
 
 1. Create PostgreSQL database named `sraws`.
-2. Copy `backend/SponsorshipApproval.Api/.env.example` values into your hosting environment or use `appsettings.Development.json` locally.
+2. Confirm `backend/SponsorshipApproval.Api/appsettings.json` or `appsettings.Development.json` matches your local PostgreSQL credentials.
+   The included local default is `Username=habibkawsar;Password=postgres`.
 3. Run the API:
 
 ```bash

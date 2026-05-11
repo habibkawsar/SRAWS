@@ -3,7 +3,7 @@ using SponsorshipApproval.Api.Domain.Enums;
 
 namespace SponsorshipApproval.Api.Application.DTOs;
 
-public sealed record SponsorshipRequestCreateDto
+public record SponsorshipRequestCreateDto
 {
     [Required, MaxLength(180)]
     public string RequestTitle { get; init; } = string.Empty;
@@ -35,8 +35,11 @@ public sealed record SponsorshipRequestCreateDto
 
 public sealed record SponsorshipRequestUpdateDto : SponsorshipRequestCreateDto;
 
-public sealed record WorkflowDecisionDto(
-    [property: MaxLength(1000)] string? Remarks);
+public sealed class WorkflowDecisionDto
+{
+    [MaxLength(1000)]
+    public string? Remarks { get; init; }
+}
 
 public sealed record SponsorshipRequestListDto(
     int Id,

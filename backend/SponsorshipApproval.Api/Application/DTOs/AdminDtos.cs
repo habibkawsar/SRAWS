@@ -5,15 +5,27 @@ namespace SponsorshipApproval.Api.Application.DTOs;
 
 public sealed record SponsorshipTypeDto(int Id, string Name, string? Description, bool IsActive);
 
-public sealed record SponsorshipTypeCreateDto(
-    [property: Required, MaxLength(120)] string Name,
-    [property: MaxLength(500)] string? Description,
-    bool IsActive = true);
+public sealed class SponsorshipTypeCreateDto
+{
+    [Required, MaxLength(120)]
+    public string Name { get; init; } = string.Empty;
 
-public sealed record SponsorshipTypeUpdateDto(
-    [property: Required, MaxLength(120)] string Name,
-    [property: MaxLength(500)] string? Description,
-    bool IsActive);
+    [MaxLength(500)]
+    public string? Description { get; init; }
+
+    public bool IsActive { get; init; } = true;
+}
+
+public sealed class SponsorshipTypeUpdateDto
+{
+    [Required, MaxLength(120)]
+    public string Name { get; init; } = string.Empty;
+
+    [MaxLength(500)]
+    public string? Description { get; init; }
+
+    public bool IsActive { get; init; }
+}
 
 public sealed record ApprovalHistoryDto(
     int Id,

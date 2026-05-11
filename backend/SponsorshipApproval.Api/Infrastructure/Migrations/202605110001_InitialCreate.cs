@@ -1,11 +1,15 @@
 using System;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using SponsorshipApproval.Api.Infrastructure.Data;
 
 #nullable disable
 
 namespace SponsorshipApproval.Api.Infrastructure.Migrations
 {
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("202605110001_InitialCreate")]
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,12 +101,19 @@ namespace SponsorshipApproval.Api.Infrastructure.Migrations
                     table.ForeignKey("FK_ApprovalHistories_Users_ActionByUserId", x => x.ActionByUserId, "Users", "Id", onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData("Roles", new[] { "Id", "Name" }, new object[,] { { 1, "Requestor" }, { 2, "Manager" }, { 3, "FinanceAdmin" }, { 4, "SystemAdmin" } });
-            migrationBuilder.InsertData("SponsorshipTypes", new[] { "Id", "Name", "Description", "IsActive", "CreatedAt" }, new object[,] {
-                { 1, "Conference", "Industry conference sponsorship", true, new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-                { 2, "Community Event", "Community or CSR event sponsorship", true, new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc) },
-                { 3, "Trade Show", "Expo, trade show, or partner showcase", true, new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc) }
-            });
+            migrationBuilder.Sql("""
+                INSERT INTO "Roles" ("Id", "Name") VALUES
+                (1, 'Requestor'),
+                (2, 'Manager'),
+                (3, 'FinanceAdmin'),
+                (4, 'SystemAdmin');
+                """);
+            migrationBuilder.Sql("""
+                INSERT INTO "SponsorshipTypes" ("Id", "Name", "Description", "IsActive", "CreatedAt") VALUES
+                (1, 'Conference', 'Industry conference sponsorship', true, TIMESTAMPTZ '2026-01-01 00:00:00+00'),
+                (2, 'Community Event', 'Community or CSR event sponsorship', true, TIMESTAMPTZ '2026-01-01 00:00:00+00'),
+                (3, 'Trade Show', 'Expo, trade show, or partner showcase', true, TIMESTAMPTZ '2026-01-01 00:00:00+00');
+                """);
             migrationBuilder.Sql("SELECT setval(pg_get_serial_sequence('\"Roles\"', 'Id'), (SELECT MAX(\"Id\") FROM \"Roles\"));");
             migrationBuilder.Sql("SELECT setval(pg_get_serial_sequence('\"SponsorshipTypes\"', 'Id'), (SELECT MAX(\"Id\") FROM \"SponsorshipTypes\"));");
 
